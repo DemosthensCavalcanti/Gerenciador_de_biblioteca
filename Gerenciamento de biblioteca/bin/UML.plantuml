@@ -1,0 +1,54 @@
+@startuml
+
+interface Gerenciavel {
+    +adicionar(item)
+    +remover(item)
+    +listar()
+}
+
+class Livro {
+    -titulo: String
+    -autor: String
+    -isbn: String
+    +compareTo(outroLivro: Livro) : int
+    +equals(o: Object) : boolean
+    +hashCode() : int
+}
+
+class Usuario {
+    -nome: String
+    -idUsuario: String
+    -livrosEmprestados: int
+    +emprestarLivro() throws Exception
+    +devolverLivro()
+}
+
+class Emprestimo {
+    -livro: Livro
+    -usuario: Usuario
+    -dataEmprestimo: Date
+    -dataDevolucao: Date
+    +devolverLivro()
+}
+
+class Biblioteca {
+    -livros: ArrayList<Livro>
+    -usuarios: ArrayList<Usuario>
+    -emprestimos: ArrayList<Emprestimo>
+    +adicionar(livro: Livro)
+    +remover(livro: Livro)
+    +listarLivros() : ArrayList<Livro>
+    +adicionarUsuario(usuario: Usuario)
+    +removerUsuario(usuario: Usuario)
+    +listarUsuarios() : ArrayList<Usuario>
+    +emprestarLivro(livro: Livro, usuario: Usuario) throws Exception
+    +devolverLivro(emprestimo: Emprestimo)
+}
+
+Biblioteca ..|> Gerenciavel
+Livro ..|> Comparable
+Biblioteca o-- Livro
+Biblioteca o-- Usuario
+Biblioteca o-- Emprestimo
+
+@enduml
